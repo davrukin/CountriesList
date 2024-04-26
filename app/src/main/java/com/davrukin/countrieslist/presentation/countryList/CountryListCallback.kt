@@ -1,11 +1,11 @@
 package com.davrukin.countrieslist.presentation.countryList
 
 import androidx.recyclerview.widget.DiffUtil
-import com.davrukin.countrieslist.data.Country
+import com.davrukin.countrieslist.domain.model.CountryInfo
 
 class CountryListCallback(
-	private val oldList: List<Country>,
-	private val newList: List<Country>,
+	private val oldList: List<CountryInfo>,
+	private val newList: List<CountryInfo>,
 ) : DiffUtil.Callback() {
 
 	override fun getOldListSize(): Int {

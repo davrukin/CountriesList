@@ -1,8 +1,8 @@
 package com.davrukin.countrieslist.remote.client
 
-import com.davrukin.countrieslist.data.Country
+import com.davrukin.countrieslist.domain.model.CountryInfo
 
 interface NetworkClient {
 
-	suspend fun getCountries(): List<Country>?
+	suspend fun getCountries(): List<CountryInfo>?
 }

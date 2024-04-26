@@ -2,8 +2,8 @@ package com.davrukin.countrieslist.remote.client
 
 import android.content.Context
 import android.util.Log
-import com.davrukin.countrieslist.data.Constants
-import com.davrukin.countrieslist.data.Country
+import com.davrukin.countrieslist.domain.data.Constants
+import com.davrukin.countrieslist.remote.model.Country
 import com.davrukin.countrieslist.remote.networkMonitor.live.LiveNetworkMonitorInterceptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

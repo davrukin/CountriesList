@@ -7,13 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.davrukin.countrieslist.R
-import com.davrukin.countrieslist.data.Country
+import com.davrukin.countrieslist.domain.model.CountryInfo
 
 class CountryListAdapter(
-	private var countries: List<Country>,
+	private var countries: List<CountryInfo>,
 ) : RecyclerView.Adapter<CountryListAdapter.ViewHolder>() {
 
-	fun updateCountries(newCountries: List<Country>) {
+	fun updateCountries(newCountries: List<CountryInfo>) {
 		val diffCallback = CountryListCallback(countries, newCountries)
 		val diffCountries = DiffUtil.calculateDiff(diffCallback)
 		countries = newCountries

@@ -2,18 +2,19 @@ package com.davrukin.countrieslist.presentation.countryList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.davrukin.countrieslist.remote.client.NetworkClient
+import com.davrukin.countrieslist.remote.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CountryListViewModel(
-	private val networkClient: NetworkClient,
+	private val networkRepository: NetworkRepository,
 ) : ViewModel() {
 
 	private val _uiState = MutableStateFlow(CountryListUIState())
-	val uiState = _uiState.asStateFlow()
+	val uiState: StateFlow<CountryListUIState> = _uiState.asStateFlow()
 
 	fun refreshCountriesList() {
 		viewModelScope.launch {
@@ -21,7 +22,7 @@ class CountryListViewModel(
 				it.copy(isLoading = true)
 			}
 
-			val countries = networkClient.getCountries()
+			val countries = networkRepository.getCountries()
 
 			_uiState.update { it ->
 				it.copy(

@@ -9,13 +9,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.davrukin.countrieslist.R
-import com.davrukin.countrieslist.data.Country
-import com.davrukin.countrieslist.remote.client.NetworkClientImpl
+import com.davrukin.countrieslist.domain.model.CountryInfo
+import com.davrukin.countrieslist.remote.NetworkRepository
 import kotlinx.coroutines.launch
 
 class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 
-	private val viewModel = CountryListViewModel(NetworkClientImpl(context))
+	private val viewModel = CountryListViewModel(NetworkRepository(context))
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
@@ -26,7 +26,7 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 
 		recyclerView.layoutManager = LinearLayoutManager(view.context)
 
-		val countries = emptyList<Country>()
+		val countries = emptyList<CountryInfo>()
 
 		val adapter = CountryListAdapter(countries)
 

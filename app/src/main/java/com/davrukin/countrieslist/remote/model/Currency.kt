@@ -1,4 +1,4 @@
-package com.davrukin.countrieslist.data
+package com.davrukin.countrieslist.remote.model
 
 import kotlinx.serialization.Serializable
 
