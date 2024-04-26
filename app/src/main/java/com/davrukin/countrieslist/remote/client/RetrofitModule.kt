@@ -1,8 +1,10 @@
 package com.davrukin.countrieslist.remote.client
 
+import android.content.Context
 import android.util.Log
 import com.davrukin.countrieslist.data.Constants
 import com.davrukin.countrieslist.data.Country
+import com.davrukin.countrieslist.remote.networkMonitor.live.LiveNetworkMonitorInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,17 +19,18 @@ import okhttp3.logging.HttpLoggingInterceptor
 import okio.IOException
 import retrofit2.Retrofit
 
-class RetrofitModule {
+class RetrofitModule(context: Context) {
 
 	private val okHttpClient: OkHttpClient by lazy {
 		val loggingInterceptor = HttpLoggingInterceptor()
 		loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-		//val networkInterceptor =
+		val networkInterceptor = LiveNetworkMonitorInterceptor(context)
 
 		OkHttpClient
 			.Builder()
 			.addInterceptor(loggingInterceptor)
+			.addInterceptor(networkInterceptor)
 			.build()
 	}
 
