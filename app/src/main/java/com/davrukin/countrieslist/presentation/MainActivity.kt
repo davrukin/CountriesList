@@ -12,15 +12,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 		super.onCreate(savedInstanceState)
 
 		enableEdgeToEdge()
-		//setContentView(R.layout.activity_main)
-
-		/*if (savedInstanceState != null) {
-			val bundle = bundleOf()
-			supportFragmentManager.commit {
-				setReorderingAllowed(true)
-				add<CountryListFragment>(R.id.fragment_container_view, args = bundle)
-			}
-		}*/
 
 		ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
 			val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

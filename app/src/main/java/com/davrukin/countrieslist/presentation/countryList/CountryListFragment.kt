@@ -1,6 +1,7 @@
 package com.davrukin.countrieslist.presentation.countryList
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -17,20 +18,25 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 
 	private val viewModel = CountryListViewModel(NetworkRepository(context))
 
+	private var recyclerView: RecyclerView? = null
+	private var recyclerViewState: Parcelable? = null
+
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
 		//val bundle = requireArguments()
 
-		val recyclerView = view.findViewById<RecyclerView>(R.id.country_list)
+		recyclerView = view.findViewById<RecyclerView>(R.id.country_list)
 
-		recyclerView.layoutManager = LinearLayoutManager(view.context)
+		recyclerView?.layoutManager = LinearLayoutManager(view.context)
 
 		val countries = emptyList<CountryInfo>()
 
 		val adapter = CountryListAdapter(countries)
 
-		recyclerView.adapter = adapter
+		adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+		recyclerView?.adapter = adapter
 
 		viewModel.refreshCountriesList()
 
@@ -41,5 +47,17 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 				}
 			}
 		}
+	}
+
+	override fun onPause() {
+		super.onPause()
+
+		recyclerViewState = recyclerView?.layoutManager?.onSaveInstanceState()
+	}
+
+	override fun onResume() {
+		super.onResume()
+
+		recyclerView?.layoutManager?.onRestoreInstanceState(recyclerViewState)
 	}
 }
