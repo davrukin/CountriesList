@@ -64,8 +64,6 @@ dependencies {
 	implementation(libs.androidx.recyclerView)
 	implementation(libs.kotlin.coroutines)
 	implementation(libs.kotlin.serialization.json)
-	implementation(libs.retrofit)
-	implementation(libs.retrofit.kotlinx.serialization)
 	implementation(platform(libs.okhttp.bom))
 	implementation(libs.okhttp)
 	implementation(libs.okhttp.interceptor)

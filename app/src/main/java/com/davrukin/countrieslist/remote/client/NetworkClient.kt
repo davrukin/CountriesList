@@ -4,5 +4,5 @@ import com.davrukin.countrieslist.data.Country
 
 interface NetworkClient {
 
-	suspend fun getCountries(): List<Country>
+	suspend fun getCountries(): List<Country>?
 }

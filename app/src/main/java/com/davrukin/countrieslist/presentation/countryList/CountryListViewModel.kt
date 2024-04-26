@@ -1,6 +1,5 @@
 package com.davrukin.countrieslist.presentation.countryList
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.davrukin.countrieslist.remote.client.NetworkClient
@@ -18,8 +17,18 @@ class CountryListViewModel(
 
 	fun refreshCountriesList() {
 		viewModelScope.launch {
+			_uiState.update {
+				it.copy(isLoading = true)
+			}
+
+			val countries = networkClient.getCountries()
+
 			_uiState.update { it ->
-				it.copy(countries = networkClient.getCountries())
+				it.copy(
+					countries = countries ?: listOf(),
+					isLoading = false,
+					isError = countries != null,
+				)
 			}
 		}
 	}

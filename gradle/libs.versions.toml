@@ -12,8 +12,6 @@ constraintlayout = "2.1.4"
 lifecycleRuntimeKtx = "2.7.0"
 serialization = "1.9.22"
 serializationJson = "1.6.3"
-retrofit = "2.9.0"
-retrofit-kotlinx-serialization = "1.0.0"
 okhttp = "4.12.0"
 mockk = "1.13.10"
 coroutines = "1.7.3"
@@ -34,8 +32,6 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-recyclerView = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerView" }
 androidx-cardView = { group = "androidx.cardview", name = "cardview", version.ref = "cardView" }
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-kotlinx-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-kotlinx-serialization"}
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson" }
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
