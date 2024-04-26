@@ -11,4 +11,5 @@ data class Country(
 	val language: Language,
 	val name: String,
 	val region: String,
+	val demonym: String? = null,
 )
