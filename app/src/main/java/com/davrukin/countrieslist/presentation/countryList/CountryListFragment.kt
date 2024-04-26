@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.davrukin.countrieslist.R
 import com.davrukin.countrieslist.domain.model.CountryInfo
+import com.davrukin.countrieslist.presentation.components.ErrorDialog
+import com.davrukin.countrieslist.presentation.components.LoadingDialog
+import com.davrukin.countrieslist.remote.LoadingState
 import com.davrukin.countrieslist.remote.NetworkRepository
 import kotlinx.coroutines.launch
 
@@ -20,6 +23,12 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 
 	private var recyclerView: RecyclerView? = null
 	private var recyclerViewState: Parcelable? = null
+
+	private val loadingDialog = LoadingDialog()
+	private val errorDialog = ErrorDialog(
+		onOk = viewModel::resetLoadingState,
+		onReload = viewModel::refreshCountriesList
+	)
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
@@ -47,6 +56,19 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				viewModel.uiState.collect {
 					adapter.updateCountries(it.countries)
+
+					when (it.loadingState) {
+						LoadingState.ERROR -> {
+							loadingDialog.cancel()
+							errorDialog.show(childFragmentManager)
+						}
+						LoadingState.LOADING -> {
+							errorDialog.cancel()
+							loadingDialog.show(childFragmentManager)
+						}
+						LoadingState.SUCCESS,
+						LoadingState.NONE -> loadingDialog.cancel()
+					}
 				}
 			}
 		}

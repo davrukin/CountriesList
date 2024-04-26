@@ -1,9 +1,9 @@
 package com.davrukin.countrieslist.presentation.countryList
 
 import com.davrukin.countrieslist.domain.model.CountryInfo
+import com.davrukin.countrieslist.remote.LoadingState
 
 data class CountryListUIState(
 	val countries: List<CountryInfo> = listOf(),
-	val isLoading: Boolean = false,
-	val isError: Boolean = false,
+	val loadingState: LoadingState = LoadingState.NONE,
 )

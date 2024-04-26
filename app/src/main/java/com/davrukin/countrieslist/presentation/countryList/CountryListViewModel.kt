@@ -2,6 +2,7 @@ package com.davrukin.countrieslist.presentation.countryList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.davrukin.countrieslist.remote.LoadingState
 import com.davrukin.countrieslist.remote.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,19 +17,31 @@ class CountryListViewModel(
 	private val _uiState = MutableStateFlow(CountryListUIState())
 	val uiState: StateFlow<CountryListUIState> = _uiState.asStateFlow()
 
+	fun resetLoadingState() {
+		viewModelScope.launch {
+			_uiState.update { uiState ->
+				uiState.copy(loadingState = LoadingState.NONE)
+			}
+		}
+	}
+
 	fun refreshCountriesList() {
 		viewModelScope.launch {
-			_uiState.update {
-				it.copy(isLoading = true)
+			_uiState.update { uiState ->
+				uiState.copy(loadingState = LoadingState.LOADING)
 			}
 
 			val countries = networkRepository.getCountries()
 
-			_uiState.update { it ->
-				it.copy(
+			_uiState.update { uiState ->
+				val loadingState = when (countries) {
+					null -> LoadingState.ERROR
+					else -> LoadingState.SUCCESS // also applies to empty
+				}
+
+				uiState.copy(
 					countries = countries ?: listOf(),
-					isLoading = false,
-					isError = countries != null,
+					loadingState = loadingState,
 				)
 			}
 		}
