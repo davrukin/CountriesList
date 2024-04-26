@@ -1,4 +1,4 @@
-package com.davrukin.countrieslist.remote.networkMonitor
+package com.davrukin.countrieslist.domain.networkMonitor
 
 import androidx.annotation.StringRes
 import com.davrukin.countrieslist.R

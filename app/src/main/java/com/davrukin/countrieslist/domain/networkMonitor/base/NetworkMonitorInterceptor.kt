@@ -1,6 +1,6 @@
-package com.davrukin.countrieslist.remote.networkMonitor.base
+package com.davrukin.countrieslist.domain.networkMonitor.base
 
-import com.davrukin.countrieslist.remote.networkMonitor.NoNetworkException
+import com.davrukin.countrieslist.domain.networkMonitor.NoNetworkException
 import okhttp3.Interceptor
 import okhttp3.Response
 

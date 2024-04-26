@@ -1,8 +1,8 @@
-package com.davrukin.countrieslist.remote.networkMonitor.live
+package com.davrukin.countrieslist.domain.networkMonitor.live
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.davrukin.countrieslist.remote.networkMonitor.base.NetworkMonitor
+import com.davrukin.countrieslist.domain.networkMonitor.base.NetworkMonitor
 
 class LiveNetworkMonitor(
 	context: Context?,
