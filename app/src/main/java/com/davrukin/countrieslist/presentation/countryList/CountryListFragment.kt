@@ -26,6 +26,7 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 
 		//val bundle = requireArguments()
 
+		// https://www.geeksforgeeks.org/android-recyclerview-in-kotlin/
 		recyclerView = view.findViewById<RecyclerView>(R.id.country_list)
 
 		recyclerView?.layoutManager = LinearLayoutManager(view.context)
@@ -34,6 +35,7 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 
 		val adapter = CountryListAdapter(countries)
 
+		// https://stackoverflow.com/a/63987580
 		adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
 		recyclerView?.adapter = adapter
@@ -41,6 +43,7 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 		viewModel.refreshCountriesList()
 
 		lifecycleScope.launch {
+			// https://developer.android.com/kotlin/flow/stateflow-and-sharedflow
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				viewModel.uiState.collect {
 					adapter.updateCountries(it.countries)
@@ -48,6 +51,8 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 			}
 		}
 	}
+
+	// https://stackoverflow.com/a/65645518
 
 	override fun onPause() {
 		super.onPause()

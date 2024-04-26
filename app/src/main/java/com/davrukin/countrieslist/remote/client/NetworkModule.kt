@@ -23,6 +23,7 @@ internal class NetworkModule(context: Context?) {
 
 	private val networkInterceptor = LiveNetworkMonitorInterceptor(context)
 
+	// https://towardsdev.com/android-kotlin-jetpack-compose-download-file-save-to-local-storage-and-preview-using-webview-79e5dec2338a
 	private val okHttpClient: OkHttpClient by lazy {
 		OkHttpClient
 			.Builder()
@@ -38,15 +39,16 @@ internal class NetworkModule(context: Context?) {
 			.url(Constants.URL)
 			.build()
 
+		// https://kotlinlang.org/docs/serialization.html#serialize-and-deserialize-json
 		return withContext(Dispatchers.IO) {
 			try {
 				val response = okHttpClient.newCall(request).execute()
-				Log.e("RetrofitModule", response.toString())
+				Log.v("NetworkModule", response.toString())
 				response.body?.byteStream()?.let {
 					Json.decodeFromStream<List<Country>>(it)
 				} ?: listOf()
 			} catch (e: IOException) {
-				e.printStackTrace()
+				Log.e("NetworkModule", "Error decoding JSON response", e)
 				null
 			}
 		}

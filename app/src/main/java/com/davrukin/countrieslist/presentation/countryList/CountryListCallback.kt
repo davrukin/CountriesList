@@ -3,6 +3,7 @@ package com.davrukin.countrieslist.presentation.countryList
 import androidx.recyclerview.widget.DiffUtil
 import com.davrukin.countrieslist.domain.model.CountryInfo
 
+// https://www.geeksforgeeks.org/diffutil-in-recyclerview-in-android/
 class CountryListCallback(
 	private val oldList: List<CountryInfo>,
 	private val newList: List<CountryInfo>,
