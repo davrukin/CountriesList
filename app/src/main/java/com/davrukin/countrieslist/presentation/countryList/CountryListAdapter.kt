@@ -9,10 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.davrukin.countrieslist.R
 import com.davrukin.countrieslist.domain.model.CountryInfo
 
+/**
+ * Adapter for each country item in the list
+ *
+ * @property countries the list of countries to show
+ */
 class CountryListAdapter(
 	private var countries: List<CountryInfo>,
 ) : RecyclerView.Adapter<CountryListAdapter.ViewHolder>() {
 
+	/**
+	 * Update the [RecyclerView] with a new set of countries
+	 *
+	 * @param newCountries the new set of countries
+	 */
 	fun updateCountries(newCountries: List<CountryInfo>) {
 		val diffCallback = CountryListCallback(countries, newCountries)
 		val diffCountries = DiffUtil.calculateDiff(diffCallback)
@@ -46,6 +56,14 @@ class CountryListAdapter(
 		return countries.size
 	}
 
+	/**
+	 * ViewHolder pattern class to get each element from the view
+	 *
+	 * @constructor
+	 * Constructor which references each item in the view
+	 *
+	 * @param itemView the view holding a single country
+	 */
 	class ViewHolder(
 		itemView: View,
 	) : RecyclerView.ViewHolder(itemView) {

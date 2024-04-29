@@ -5,6 +5,12 @@ import android.app.Dialog
 import android.os.Bundle
 import com.davrukin.countrieslist.R
 
+/**
+ * Dialog to show an error
+ *
+ * @property onOk action to perform once "OK" is clicked
+ * @property onReload action to perform once "Try Again" is clicked
+ */
 class ErrorDialog(
 	private val onOk: () -> Unit = {},
 	private val onReload: () -> Unit = {},
@@ -22,7 +28,7 @@ class ErrorDialog(
 		dialog = AlertDialog
 			.Builder(context)
 			.setTitle(R.string.error_title)
-			.setMessage(R.string.error_message)
+			.setMessage(R.string.error_message_remote_data)
 			.setNegativeButton(R.string.ok) { _, _ ->
 				cancel()
 				onOk.invoke()

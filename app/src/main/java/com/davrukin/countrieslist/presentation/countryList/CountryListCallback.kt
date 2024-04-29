@@ -4,6 +4,12 @@ import androidx.recyclerview.widget.DiffUtil
 import com.davrukin.countrieslist.domain.model.CountryInfo
 
 // https://www.geeksforgeeks.org/diffutil-in-recyclerview-in-android/
+/**
+ * Class to compare one list of countries with the next to determine changes
+ *
+ * @property oldList the old list of countries
+ * @property newList the new list of countries
+ */
 class CountryListCallback(
 	private val oldList: List<CountryInfo>,
 	private val newList: List<CountryInfo>,
@@ -23,9 +29,5 @@ class CountryListCallback(
 
 	override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
 		return oldList[oldItemPosition].code == newList[newItemPosition].code
-	}
-
-	override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-		return super.getChangePayload(oldItemPosition, newItemPosition)
 	}
 }

@@ -4,7 +4,8 @@
     <string name="error_no_network">No network connection</string>
     <string name="loading_title">Loading</string>
     <string name="error_title">Error</string>
-    <string name="error_message">An error has occurred while loading remote data.</string>
+    <string name="error_message_remote_data">An error has occurred while loading remote data.</string>
+    <string name="error_message_detailed">%s\n%s</string>
     <string name="ok">OK</string>
     <string name="try_again">Try again</string>
 </resources>

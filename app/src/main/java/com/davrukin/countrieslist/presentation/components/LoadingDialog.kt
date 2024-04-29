@@ -5,6 +5,9 @@ import android.app.Dialog
 import android.os.Bundle
 import com.davrukin.countrieslist.R
 
+/**
+ * Dialog with a spinner to show while something is loading
+ */
 class LoadingDialog : BaseDialog() {
 
 	override val TAG: String = "LoadingDialog"

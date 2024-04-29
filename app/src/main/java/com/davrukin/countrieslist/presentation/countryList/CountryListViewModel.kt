@@ -32,6 +32,7 @@ class CountryListViewModel(
 			}
 
 			val countries = networkRepository.getCountries()
+			// would potentially throw exception and put it into the ERROR state
 
 			_uiState.update { uiState ->
 				val loadingState = when (countries) {

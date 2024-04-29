@@ -34,6 +34,7 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 		super.onViewCreated(view, savedInstanceState)
 
 		//val bundle = requireArguments()
+		// this is an option if using fragment programmatically to send args
 
 		// https://www.geeksforgeeks.org/android-recyclerview-in-kotlin/
 		recyclerView = view.findViewById<RecyclerView>(R.id.country_list)
@@ -58,16 +59,16 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 					adapter.updateCountries(it.countries)
 
 					when (it.loadingState) {
-						LoadingState.ERROR -> {
+						is LoadingState.ERROR -> {
 							loadingDialog.cancel()
 							errorDialog.show(childFragmentManager)
 						}
-						LoadingState.LOADING -> {
+						is LoadingState.LOADING -> {
 							errorDialog.cancel()
 							loadingDialog.show(childFragmentManager)
 						}
-						LoadingState.SUCCESS,
-						LoadingState.NONE -> loadingDialog.cancel()
+						is LoadingState.SUCCESS,
+						is LoadingState.NONE -> loadingDialog.cancel()
 					}
 				}
 			}

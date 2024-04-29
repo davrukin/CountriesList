@@ -3,6 +3,7 @@ package com.davrukin.countrieslist.remote.client
 import android.content.Context
 import android.util.Log
 import com.davrukin.countrieslist.domain.data.Constants
+import com.davrukin.countrieslist.domain.networkMonitor.NoNetworkException
 import com.davrukin.countrieslist.domain.networkMonitor.live.LiveNetworkMonitorInterceptor
 import com.davrukin.countrieslist.remote.model.Country
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +16,14 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.IOException
 
+/**
+ * Module which creates networking infrastructure to request the JSON and parses it into a list of classes
+ *
+ * @constructor
+ * Constructor for this class
+ *
+ * @param context used for the network connectivity monitor
+ */
 internal class NetworkModule(context: Context?) {
 
 	private val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -32,6 +41,11 @@ internal class NetworkModule(context: Context?) {
 			.build()
 	}
 
+	/**
+	 * Downloads the JSON and maps it to a list of countries
+	 *
+	 * @return a nullable list of countries; null if error during loading
+	 */
 	@OptIn(ExperimentalSerializationApi::class)
 	suspend fun downloadFile(): List<Country>? {
 		val request = Request
@@ -46,7 +60,7 @@ internal class NetworkModule(context: Context?) {
 				Log.v("NetworkModule", response.toString())
 				response.body?.byteStream()?.let {
 					Json.decodeFromStream<List<Country>>(it)
-				} ?: listOf()
+				}
 			} catch (e: IOException) {
 				Log.e("NetworkModule", "Error decoding JSON response", e)
 				null

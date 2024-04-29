@@ -4,6 +4,14 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.davrukin.countrieslist.domain.networkMonitor.base.NetworkMonitor
 
+/**
+ * Concrete implementation to check for network connectivity status
+ *
+ * @constructor
+ * Creates a new instance of this class and gets the [Context.CONNECTIVITY_SERVICE] to check for network status
+ *
+ * @param context the application context which gets the [ConnectivityManager] service internally. If context is null, this reports a live connection
+ */
 class LiveNetworkMonitor(
 	context: Context?,
 ) : NetworkMonitor {

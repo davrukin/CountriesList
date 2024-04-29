@@ -3,6 +3,14 @@ package com.davrukin.countrieslist.remote.client
 import android.content.Context
 import com.davrukin.countrieslist.domain.model.CountryInfo
 
+/**
+ * Concrete implementation of [NetworkClient] which maps the network model to the UI model
+ *
+ * @constructor
+ * Constructor for an instance of this class
+ *
+ * @param context uses context to check for network connectivity
+ */
 class NetworkClientImpl(
 	context: Context?,
 ) : NetworkClient {
