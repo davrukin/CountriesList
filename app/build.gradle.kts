@@ -67,7 +67,8 @@ dependencies {
 	implementation(platform(libs.okhttp.bom))
 	implementation(libs.okhttp)
 	implementation(libs.okhttp.interceptor)
-
+	implementation(libs.coil)
+	implementation(libs.coil.svg)
 
 	testImplementation(libs.junit)
 	testImplementation(libs.mockk.base)

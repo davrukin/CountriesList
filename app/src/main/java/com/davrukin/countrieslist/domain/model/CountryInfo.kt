@@ -14,4 +14,5 @@ data class CountryInfo(
 	val region: String,
 	val name: String,
 	val capital: String,
+	val flag: String,
 )

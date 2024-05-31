@@ -2,9 +2,12 @@ package com.davrukin.countrieslist.presentation.countryList
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,23 +18,32 @@ import com.davrukin.countrieslist.presentation.components.ErrorDialog
 import com.davrukin.countrieslist.presentation.components.LoadingDialog
 import com.davrukin.countrieslist.remote.LoadingState
 import com.davrukin.countrieslist.remote.NetworkRepository
+import com.davrukin.countrieslist.remote.model.Country
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 
-	private val viewModel = CountryListViewModel(NetworkRepository(context))
+	//private val viewModel = CountryListViewModel(NetworkRepository(context))
+	private val viewModel: CountryListViewModel by activityViewModels()
+	//private lateinit var viewModel: CountryListViewModel
 
 	private var recyclerView: RecyclerView? = null
 	private var recyclerViewState: Parcelable? = null
 
 	private val loadingDialog = LoadingDialog()
-	private val errorDialog = ErrorDialog(
-		onOk = viewModel::resetLoadingState,
-		onReload = viewModel::refreshCountriesList
-	)
+	private lateinit var errorDialog: ErrorDialog
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+
+		//viewModel = ViewModelProvider(requireActivity()).get(CountryListViewModel::class.java)
+		errorDialog = ErrorDialog(
+			onOk = viewModel::resetLoadingState,
+			onReload = viewModel::refreshCountriesList
+		)
 
 		//val bundle = requireArguments()
 		// this is an option if using fragment programmatically to send args
@@ -55,7 +67,7 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 		lifecycleScope.launch {
 			// https://developer.android.com/kotlin/flow/stateflow-and-sharedflow
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-				viewModel.uiState.collect {
+				viewModel.uiState.collectLatest {
 					adapter.updateCountries(it.countries)
 
 					when (it.loadingState) {
@@ -68,7 +80,9 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 							loadingDialog.show(childFragmentManager)
 						}
 						is LoadingState.SUCCESS,
-						is LoadingState.NONE -> loadingDialog.cancel()
+						is LoadingState.NONE -> {
+							loadingDialog.cancel()
+						}
 					}
 				}
 			}

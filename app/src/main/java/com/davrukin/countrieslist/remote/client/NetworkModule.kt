@@ -24,7 +24,7 @@ import okio.IOException
  *
  * @param context used for the network connectivity monitor
  */
-internal class NetworkModule(context: Context?) {
+internal class NetworkModule(context: Context? = null) {
 
 	private val loggingInterceptor = HttpLoggingInterceptor().apply {
 		level = HttpLoggingInterceptor.Level.BODY

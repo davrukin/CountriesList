@@ -13,7 +13,7 @@ import com.davrukin.countrieslist.remote.client.NetworkClientImpl
  * @param context used internally for network connectivity monitoring
  */
 class NetworkRepository(
-	context: Context?,
+	context: Context? = null,
 ) {
 	private val networkClient = NetworkClientImpl(context)
 

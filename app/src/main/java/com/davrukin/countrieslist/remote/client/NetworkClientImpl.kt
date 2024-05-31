@@ -12,7 +12,7 @@ import com.davrukin.countrieslist.domain.model.CountryInfo
  * @param context uses context to check for network connectivity
  */
 class NetworkClientImpl(
-	context: Context?,
+	context: Context? = null,
 ) : NetworkClient {
 
 	private val networkModule = NetworkModule(context)
@@ -26,6 +26,7 @@ class NetworkClientImpl(
 					region = country.region,
 					name = country.name,
 					capital = country.capital,
+					flag = country.flag,
 				)
 			}
 	}
