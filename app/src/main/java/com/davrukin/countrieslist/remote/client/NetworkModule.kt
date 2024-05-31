@@ -3,7 +3,6 @@ package com.davrukin.countrieslist.remote.client
 import android.content.Context
 import android.util.Log
 import com.davrukin.countrieslist.domain.data.Constants
-import com.davrukin.countrieslist.domain.networkMonitor.NoNetworkException
 import com.davrukin.countrieslist.domain.networkMonitor.live.LiveNetworkMonitorInterceptor
 import com.davrukin.countrieslist.remote.model.Country
 import kotlinx.coroutines.Dispatchers

@@ -2,12 +2,10 @@ package com.davrukin.countrieslist.presentation.countryList
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,33 +15,24 @@ import com.davrukin.countrieslist.domain.model.CountryInfo
 import com.davrukin.countrieslist.presentation.components.ErrorDialog
 import com.davrukin.countrieslist.presentation.components.LoadingDialog
 import com.davrukin.countrieslist.remote.LoadingState
-import com.davrukin.countrieslist.remote.NetworkRepository
-import com.davrukin.countrieslist.remote.model.Country
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class CountryListFragment : Fragment(R.layout.fragment_country_list) {
 
-	//private val viewModel = CountryListViewModel(NetworkRepository(context))
 	private val viewModel: CountryListViewModel by activityViewModels()
-	//private lateinit var viewModel: CountryListViewModel
 
 	private var recyclerView: RecyclerView? = null
 	private var recyclerViewState: Parcelable? = null
 
 	private val loadingDialog = LoadingDialog()
-	private lateinit var errorDialog: ErrorDialog
+	private var errorDialog = ErrorDialog(
+		onOk = viewModel::resetLoadingState,
+		onReload = viewModel::refreshCountriesList
+	)
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-
-		//viewModel = ViewModelProvider(requireActivity()).get(CountryListViewModel::class.java)
-		errorDialog = ErrorDialog(
-			onOk = viewModel::resetLoadingState,
-			onReload = viewModel::refreshCountriesList
-		)
 
 		//val bundle = requireArguments()
 		// this is an option if using fragment programmatically to send args

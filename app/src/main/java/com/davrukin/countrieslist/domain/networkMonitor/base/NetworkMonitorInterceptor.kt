@@ -1,6 +1,5 @@
 package com.davrukin.countrieslist.domain.networkMonitor.base
 
-import com.davrukin.countrieslist.domain.networkMonitor.NoNetworkException
 import okhttp3.Interceptor
 import okhttp3.Response
 

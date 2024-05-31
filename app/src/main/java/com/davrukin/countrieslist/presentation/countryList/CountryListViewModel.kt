@@ -1,6 +1,5 @@
 package com.davrukin.countrieslist.presentation.countryList
 
-import android.net.Network
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.davrukin.countrieslist.remote.LoadingState

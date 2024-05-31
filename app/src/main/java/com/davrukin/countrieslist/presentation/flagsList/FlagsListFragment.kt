@@ -6,7 +6,6 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.decode.SvgDecoder
@@ -21,20 +20,16 @@ import kotlinx.coroutines.launch
 
 class FlagsListFragment : Fragment(R.layout.fragment_flags_list) {
 
-	//private lateinit var viewModel: CountryListViewModel
 	private val viewModel: CountryListViewModel by activityViewModels()
 
 	private val loadingDialog = LoadingDialog()
-	private lateinit var errorDialog: ErrorDialog
+	private var errorDialog = ErrorDialog(
+		onOk = viewModel::resetLoadingState,
+		onReload = viewModel::refreshCountriesList
+	)
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-
-		//viewModel = ViewModelProvider(requireActivity()).get(CountryListViewModel::class.java)
-		errorDialog = ErrorDialog(
-			onOk = viewModel::resetLoadingState,
-			onReload = viewModel::refreshCountriesList
-		)
 
 		viewModel.refreshCountriesList()
 
